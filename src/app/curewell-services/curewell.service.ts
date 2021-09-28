@@ -27,19 +27,18 @@ export class CurewellService {
 
 
   //Do not modify signature
-  getAllSurgeriesDetails(): <ISurgery[]> {
+  getAllSurgeriesDetails(): Observable<ISurgery[]> {
     //To do implement necessary logic
-    //let tempVar = this.http.get<ISurgery[]>('http://localhost:60688/api/CureWell/FetchAllSurgeryDetails').pipe(catchError(this.errorHandler));
-    surgeryList = [{"surgeryId": 1, "doctorId": "D1001", "surgeryCategory": "Arsen", "startTime": "12:00", "endTime": "17:00", "surgeryDate": new Date() }]
-    return surgeryList;
-    
+    let tempVar = this.http.get<ISurgery[]>('http://localhost:60688/api/CureWell/FetchAllSurgeryDetails').pipe(catchError(this.errorHandler));
+    return tempVar;
   }
+
 
 
   //Do not modify signature
   editSurgery(surgeryObj: ISurgery): Observable<boolean> {
-    //To do implement necessary logic
-    return null;
+    //To do implement necessary logic 
+    return this.http.put<boolean>('http://localhost:60688/api/CureWell/UpdateSurgeryDetails', surgeryObj).pipe(catchError(this.errorHandler));
   }
 
 
