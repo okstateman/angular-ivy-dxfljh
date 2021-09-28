@@ -42,10 +42,31 @@ export class UpdateSurgeryComponent implements OnInit {
   //Do not modify signature
   editSurgery(form: NgForm) {
   //To do implement necessary logic
-  form.value.surgeryId = this.surgeryId;
-
-
-
+  this.surgeryObj.doctorId = form.value.doctorId;
+    this.surgeryObj.surgeryId = this.surgeryId;
+    this.surgeryObj.surgeryDate = form.value.surgeryDate;
+    this.surgeryObj.startTime = form.value.startTime;
+    this.surgeryObj.endTime = form.value.endTime;
+    this.surgeryObj.surgeryCategory = form.value.surgeryCategory;
     
+    this._cureWellService.editSurgery(this.surgeryObj).subscribe(
+      responseStatus => {
+        this.status = responseStatus;
+        if(this.status){
+          alert("Updated Successfully. ");
+          this.router.navigate(['/viewSurgeryDetails']);
+        }
+        else{
+          alert("Some error occured. Please try again")
+        }
+      },
+      responseRegUserError => {
+        this.errorMsg = responseRegUserError;
+        console.log(this.errorMsg);
+        alert("Some error occured, please try after");
+        this.router.navigate(['/viewDoctors']);
+      },
+      () => console.log("RegisterUser method executed successfully.")
+    );
   }
 }
